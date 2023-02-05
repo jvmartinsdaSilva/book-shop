@@ -1,24 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import GlobalStyle from './styles/golbalStyle';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components';
+import { useState, useEffect } from 'react';
+
+import { PageTheme } from './styles/Theme/PageTheme';
+import Header from './components/Header/HeaderIndex';
+import NavBar from './components/NavBar';
+import Home from './components/pages/Home/HomeIndex'
+import Products from './components/pages/Products/index'
+import Cart from './components/pages/Cart';
+import ProductCard from './components/pages/ProductCard/ProductCard.index';
+
 
 function App() {
+  const [bookSerachValue, setBookSerachValue] = useState()
+  const [allBooks, setAllBooks] = useState([])
+
+  const searchBook = (book) => {
+    let BookSearchFormat = book
+
+    if (book) BookSearchFormat = book.toLowerCase()
+
+    setBookSerachValue(BookSearchFormat)
+  }
+
+  useEffect(() => {
+    const getBooks = async () => {
+      await fetch('http://localhost:8080/books')
+        .then((res) => res.json())
+        .then((data) => setAllBooks(data))
+        .catch((err) => {
+          setAllBooks([])
+          console.log('ERRO: ' + err)
+        })
+
+    }
+    getBooks()
+  }, [])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={PageTheme} >
+      <GlobalStyle />
+      <Router>
+        <Header getBook={searchBook} />
+        <NavBar />
+        <Routes>
+          <Route path='/' element={<Home allBooks={allBooks} />} />
+          <Route path='/products' element={<Products BookSearch={bookSerachValue} allBooks={allBooks} />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/product/:id' element={<ProductCard/>}/>
+        </Routes>
+      </Router>
+
+    </ThemeProvider>
   );
 }
 
