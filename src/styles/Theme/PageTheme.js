@@ -6,6 +6,6 @@ export  const PageTheme = {
         secundary: '#F7F0F5',
         background: '#FFFDF7',
         text: '#1D201F',
-
+        textWhite: "#ffff"
     }
 }
