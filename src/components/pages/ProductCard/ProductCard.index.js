@@ -1,19 +1,19 @@
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { useEffect, useState } from "react"
+
 import ProductCardContainer from "./ProductCardStyle"
 import { GrAdd, GrSubtract } from "react-icons/gr";
 
-const ProductCard = ({checkBookInCart}) => {
+const ProductCard = ({ checkBookInCart }) => {
     const [book, setBook] = useState({})
     const { id } = useParams()
     const [amountBook, setAmountBook] = useState(1)
 
     useEffect(() => {
         const getBookId = async () => {
-            await fetch(`http://localhost:8080/books/${id}`)
-                .then((res) => res.json())
-                .then((data) => setBook(data))
-                .catch((err) => console.log('ERRO: ' + err))
+            const res = await fetch(`http://localhost:8080/books/${id}`)
+            const bookId = await res.json()
+            setBook(bookId)
         }
         getBookId()
 
@@ -34,7 +34,7 @@ const ProductCard = ({checkBookInCart}) => {
     }
 
     const getInfosBook = () => {
-        const myBook =  {
+        const myBook = {
             id: book.id,
             name: book.name,
             description: book.description,
@@ -42,13 +42,13 @@ const ProductCard = ({checkBookInCart}) => {
             totalPrice: (book.price * amountBook)
         }
 
-        if(myBook.amount <= 0){
+        if (myBook.amount <= 0) {
             console.log('False')
             return
         }
 
         checkBookInCart(myBook)
-        
+
     }
 
     return (
@@ -65,7 +65,9 @@ const ProductCard = ({checkBookInCart}) => {
                 </p>
                 <p>Em estoque: {book.stock}</p>
                 <p>Total a pagar {(book.price * amountBook)}</p>
-                <button onClick={() => getInfosBook()} className="buyBook">COMPRAR</button>
+                <Link to='/cart'>
+                    <button onClick={() => getInfosBook()} className="buyBook">COMPRAR</button>
+                </Link>
             </div>
         </ProductCardContainer>
     )
