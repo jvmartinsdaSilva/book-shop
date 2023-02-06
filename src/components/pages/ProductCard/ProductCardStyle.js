@@ -58,6 +58,7 @@ const ProductCardContainer = styled.div`
         font-size: 20px;
         border: none;
         cursor: pointer;
+        background: blue;
     }
     
     p.amountControl button:active{

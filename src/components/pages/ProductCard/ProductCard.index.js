@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import ProductCardContainer from "./ProductCardStyle"
 import { GrAdd, GrSubtract } from "react-icons/gr";
 
-const ProductCard = () => {
+const ProductCard = ({checkBookInCart}) => {
     const [book, setBook] = useState({})
     const { id } = useParams()
     const [amountBook, setAmountBook] = useState(0)
@@ -33,7 +33,7 @@ const ProductCard = () => {
         setAmountBook(amountBook + 1)
     }
 
-    const addBookInCart = () => {
+    const getInfosBook = () => {
         const myBook =  {
             id: book.id,
             name: book.name,
@@ -42,7 +42,13 @@ const ProductCard = () => {
             price: (book.price * amountBook)
         }
 
-        console.log(myBook)
+        if(myBook.amount <= 0){
+            console.log('False')
+            return
+        }
+
+        checkBookInCart(myBook)
+        
     }
 
     return (
@@ -59,7 +65,7 @@ const ProductCard = () => {
                 </p>
                 <p>Em estoque: {book.stock}</p>
                 <p>Total a pagar {(book.price * amountBook)}</p>
-                <button onClick={() => addBookInCart()} className="buyBook">COMPRAR</button>
+                <button onClick={() => getInfosBook()} className="buyBook">COMPRAR</button>
             </div>
         </ProductCardContainer>
     )

@@ -34,6 +34,7 @@ const Products = ({ BookSearch, allBooks }) => {
                     img={book.img}
                     id={book.id}
                     key={book.id}
+
                 />
             ))}
 

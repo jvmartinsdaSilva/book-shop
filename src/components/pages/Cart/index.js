@@ -1,8 +1,10 @@
 
 
-const Cart = () => {
+const Cart = ({cartBooks}) => {
     return(
-        <p>Carrinho...</p>
+        <>
+            {console.log(cartBooks)}
+        </>
     )
 }
 
