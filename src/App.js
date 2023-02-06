@@ -7,7 +7,7 @@ import Header from './components/Header/HeaderIndex';
 import NavBar from './components/NavBar';
 import Home from './components/pages/Home/HomeIndex'
 import Products from './components/pages/Products/index'
-import Cart from './components/pages/Cart';
+import Cart from './components/pages/Cart/CartIndex';
 import ProductCard from './components/pages/ProductCard/ProductCard.index';
 
 
@@ -57,7 +57,7 @@ function App() {
     cartBook.map((book) => {
       if (book.id === newBook.id) {
         book.amount = newBook.amount
-        book.price = newBook.price
+        book.totalPrice = newBook.totalPrice
       }
       return cartBook
     })

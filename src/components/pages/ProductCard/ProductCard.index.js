@@ -6,7 +6,7 @@ import { GrAdd, GrSubtract } from "react-icons/gr";
 const ProductCard = ({checkBookInCart}) => {
     const [book, setBook] = useState({})
     const { id } = useParams()
-    const [amountBook, setAmountBook] = useState(0)
+    const [amountBook, setAmountBook] = useState(1)
 
     useEffect(() => {
         const getBookId = async () => {
@@ -20,7 +20,7 @@ const ProductCard = ({checkBookInCart}) => {
     }, [id])
 
     const subtractBook = () => {
-        if (amountBook <= 0) {
+        if (amountBook <= 1) {
             return
         }
         setAmountBook(amountBook - 1)
@@ -39,7 +39,7 @@ const ProductCard = ({checkBookInCart}) => {
             name: book.name,
             description: book.description,
             amount: amountBook,
-            price: (book.price * amountBook)
+            totalPrice: (book.price * amountBook)
         }
 
         if(myBook.amount <= 0){

@@ -6,7 +6,7 @@ const ProductCardContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 100px auto;
+    margin: 2em auto;
     padding: 1em;
     width: 300px;
     box-shadow: 2px 2px 2px rgba(34, 34, 34, .45);
@@ -93,6 +93,18 @@ const ProductCardContainer = styled.div`
     button.buyBook:hover{
         background: ${(props) => props.theme.colors.primaryHover};
 
+    }
+
+    @media screen  and (min-width: 768px){
+        width: 600px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding: .5em;
+
+        .infos{
+            width: 300px;
+        }
     }
 
     
